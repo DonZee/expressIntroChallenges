@@ -9,10 +9,10 @@ app.post('/create/:name/:age',function(req,res){
     name: req.params.name,
     age: parseInt(req.params.age)
   }
-  fs.readFile('/storage.json','utf-8', function(err,data){
+  fs.readFile('./storage.json','utf8', function(err,data){
     let dataAsArr = JSON.parse(data);
     dataAsArr.push(newObj);
-    fs.writeFile('storage.json', JSON.stringify(dataAsArr),function(err){
+    fs.writeFile('./storage.json', JSON.stringify(dataAsArr),function(err){
       res.sendStatus(200);
     })
   });
@@ -28,7 +28,7 @@ app.get('/:name',function(req,res){
   fs.readFile('/storage.json','utf-8',function(err,data){
     let parsedData = JSON.parse(data);
     let matchedUser = parsedData.filter((item)=>{
-      return item.name ==req.params.name;
+      return item.name == req.params.name;
     });
     if(matchedUser.length >= 1){
       res.json(matchedUser[0]);
